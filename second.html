@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chai Cart</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="loading-screen">
+        <div id="loading-animation">
+            <img src="images/chai-cup.gif" id="chai-gif" alt="Chai Cup GIF">
+            <div id="loading-container">
+                <div id="loading-bar-placeholder"></div>
+                <div id="loading-bar"></div>
+                <div id="loading-counter">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#intro">Home</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main website container with rounded corners -->
+    <div id="website-container">
+        <!-- Intro Section -->
+        <section id="intro" class="intro-section">
+            <h1>Welcome to Chaska Chai Cart</h1>
+            <p>We serve delightful chai at your events—weddings, birthdays, and more!</p>
+            <a href="#contact" class="book-btn">Book Us for Your Event</a>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="gallery-section">
+            <h2>Event Gallery</h2>
+            <div class="gallery-container">
+                <div class="gallery">
+                    <img src="images/event1.jpg" alt="Event 1">
+                    <img src="images/event2.jpg" alt="Event 2">
+                    <img src="images/event3.jpg" alt="Event 3">
+                    <img src="images/event4.jpg" alt="Event 4">
+                    <img src="images/event5.jpg" alt="Event 5">
+                    <img src="images/event6.jpg" alt="Event 6">
+                    <img src="images/event7.jpg" alt="Event 7">
+                    <img src="images/event8.jpg" alt="Event 8">
+                    <img src="images/event9.jpg" alt="Event 9">
+                    <img src="images/event10.jpg" alt="Event 10">
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+
+            <!-- Embed Google Calendar Here -->
+            <div id="calendar-container" style="margin-top: 40px;">
+                <iframe src="https://calendar.google.com/calendar/embed?src=humaizakbar610%40gmail.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            </div>
+        </section>
+
+
+        <!-- Socials Section -->
+        <footer>
+            <div class="socials">
+                <a href="#" target="_blank"><img src="images/tiktok.svg" alt="Tiktok"></a>
+                <a href="https://www.instagram.com/chaichaskacart/" target="_blank"><img src="images/instagram.svg" alt="Instagram"></a>
+                <a href="#" target="_blank"><img src="images/twitter.svg" alt="Twitter"></a>
+            </div>
+            <p>&copy; 2024 Chai Cart | All rights reserved.</p>
+        </footer>
+
+        <!-- Modal for viewing full-sized images -->
+        <div id="image-modal" style="display: none;">
+            <span id="close-modal" style="position: absolute; top: 10px; right: 10px; font-size: 30px; cursor: pointer;">&times;</span>
+            <img id="modal-image" style="max-width: 90%; max-height: 90%; border-radius: 10px;" />
+        </div>
+
+        <!-- JavaScript -->
+        <script src="script.js"></script>
+        <script>
+            // Modal functionality for enlarging images
+            const galleryImages = document.querySelectorAll('.gallery img');
+            const modal = document.getElementById('image-modal');
+            const modalImage = document.getElementById('modal-image');
+            const closeModal = document.getElementById('close-modal');
+
+            galleryImages.forEach((img) => {
+                img.addEventListener('click', function() {
+                    modal.style.display = 'flex';
+                    modalImage.src = this.src;
+                });
+            });
+
+            closeModal.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Horizontal swipe and drag functionality
+            const galleryContainer = document.querySelector('.gallery-container');
+            let isMouseDown = false;
+            let startX;
+            let scrollLeft;
+
+            // Disable image dragging to prevent conflict with gallery scrolling
+            galleryImages.forEach((img) => {
+                img.addEventListener('dragstart', (e) => e.preventDefault());
+            });
+
+            // Desktop drag functionality
+            galleryContainer.addEventListener('mousedown', (e) => {
+                isMouseDown = true;
+                startX = e.pageX - galleryContainer.offsetLeft;
+                scrollLeft = galleryContainer.scrollLeft;
+                galleryContainer.style.cursor = 'grabbing';
+            });
+
+            galleryContainer.addEventListener('mouseleave', () => {
+                isMouseDown = false;
+                galleryContainer.style.cursor = 'grab';
+            });
+
+            galleryContainer.addEventListener('mouseup', () => {
+                isMouseDown = false;
+                galleryContainer.style.cursor = 'grab';
+            });
+
+            galleryContainer.addEventListener('mousemove', (e) => {
+                if (!isMouseDown) return;
+                e.preventDefault();
+                const x = e.pageX - galleryContainer.offsetLeft;
+                const walk = (x - startX) * 2; // Adjust scrolling speed
+                galleryContainer.scrollLeft = scrollLeft - walk;
+            });
+
+            // For Mobile: Implementing swipe functionality
+            let isTouchStart = false;
+            let startTouchX;
+
+            galleryContainer.addEventListener('touchstart', (e) => {
+                isTouchStart = true;
+                startTouchX = e.touches[0].pageX;
+                scrollLeft = galleryContainer.scrollLeft;
+            });
+
+            galleryContainer.addEventListener('touchmove', (e) => {
+                if (!isTouchStart) return;
+                const touchX = e.touches[0].pageX;
+                const move = (touchX - startTouchX) * 2; // Adjust swipe speed
+                galleryContainer.scrollLeft = scrollLeft - move;
+            });
+
+            galleryContainer.addEventListener('touchend', () => {
+                isTouchStart = false;
+            });
+        </script>
+    </div>
+</body>
+</html>

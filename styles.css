@@ -1,0 +1,434 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%; /* Ensure the full height is taken up */
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Disables body scrolling */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black; /* Adjusted for visibility */
+}
+
+/* Navigation Wrapper to hold the navigation */
+.nav-wrapper {
+    width: 90%; /* Same width as website container */
+    height: 50px; /* Slightly taller for padding */
+    position: fixed; /* Fixed position for floating effect */
+    top: 5%; /* Positioned above the website container */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(246, 238, 215, 255); /* Same background color */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for floating effect */
+    display: flex; /* Flexbox for navigation items */
+    justify-content: center;
+    align-items: center;
+    z-index: 1100; /* Higher than website container */
+}
+
+/* Navigation Container Styling */
+.nav-container {
+    width: 100%; /* Full width within the wrapper */
+    display: flex;
+    justify-content: space-around; /* Space out the items */
+    align-items: center;
+}
+
+/* Navigation Links Styling */
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: black; /* Make the text color black */
+    font-size: 1rem;
+    padding: 10px 20px; /* Adjust padding for spacing */
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ff6f61; /* Change color on hover */
+}
+
+/* Form Wrapper for styling the embedded form */
+.form-wrapper {
+    width: 100%; /* Full width inside container */
+    height: 100%; /* Full height inside container */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Remove unnecessary padding */
+}
+
+/* Styling for the embedded form */
+.form-iframe {
+    width: 100%; /* Take full width of the container */
+    height: 100%; /* Take full height of the container */
+    min-width: 600px; /* Minimum width to ensure the form is not too small */
+    min-height: 600px; /* Minimum height for visibility */
+    border: none; /* Remove default border */
+}
+
+#website-container {
+    width: 90%; /* Relative to the viewport */
+    height: 85vh; /* 80% of the viewport height */
+    background-color: rgba(246,238,215,255); /* Light background for the container */
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    overflow-y: auto; /* Enables scrolling within the container */
+    position: fixed; /* Fixed positioning relative to the viewport */
+    top: 10%; /* Positioned 10% from the top */
+    left: 50%; /* Centered horizontally */
+    transform: translateX(-50%); /* Centering adjustment */
+    z-index: 1000; /* High z-index to ensure it's on top */
+    margin-top: 10px;
+}
+
+/* Custom scrollbar styling for the container */
+#website-container::-webkit-scrollbar {
+    width: 0px; /* Scrollbar width */
+    height: 0px;
+}
+
+#website-container::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Track color */
+}
+
+#website-container::-webkit-scrollbar-thumb {
+    background: #888; /* Thumb color */
+}
+
+#website-container::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Thumb hover color */
+}
+
+#website-container iframe {
+    width: auto;
+    height: auto;
+}
+
+section {
+    padding-top: 100px; /* Adjust according to nav height */
+    margin-bottom: 20px; 
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white; /* Background color for the loading screen */
+    z-index: 9999; /* Ensure it appears above all other elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Loading Animation Container */
+#loading-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Space between the GIF and loading bar */
+}
+
+/* Chai GIF */
+#chai-gif {
+    width: 100px; /* Adjust the size of the GIF as needed */
+    height: auto;
+}
+
+/* Loading Bar Container */
+#loading-container {
+    position: relative;
+    width: 250px; /* Width of the loading bar placeholder */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start; /* Ensure bar grows from left */
+}
+
+/* Placeholder Line */
+#loading-bar-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%; /* The full width of the placeholder */
+    height: 2px; /* Thin placeholder line */
+    background-color: #ccc; /* Placeholder color */
+    z-index: 1;
+}
+
+/* The Loading Bar */
+#loading-bar {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0%; /* Start at 0% */
+    height: 2px; /* Thin line */
+    background-color: #775a57; /* Color for the loading bar */
+    z-index: 2; /* Ensure it appears on top of the placeholder */
+    transition: width .5s ease-in-out; /* Make the bar fill in 3 seconds */
+}
+
+/* Percentage Counter */
+#loading-counter {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem; /* Smaller text for the counter */
+    color: #000000;
+    position: relative;
+    margin-left: 255px; /* Align the counter just outside the bar */
+    z-index: 3;
+}
+
+/* Fade-out animation for the loading screen */
+.fade-out {
+    opacity: 0;
+    transition: opacity 1s ease;
+    pointer-events: none;
+}
+
+/* Intro Section Styling */
+.intro-section {
+    min-height: calc(100vh - 150px); /* Adjust based on nav and padding */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: black;
+}
+
+/* Intro Section Text */
+.intro-section h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.intro-section p {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    color: black;
+}
+
+.intro-section img {
+    width: 20%;
+    height: 30%;
+}
+
+/* Book Button Styling */
+.book-btn {
+    padding: 10px 20px;
+    background-color: #ff6f61;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: background 0.3s;
+}
+
+.book-btn:hover {
+    background-color: #e65c50;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+    #website-container {
+        width: 95%; /* Increase the width on mobile */
+        padding: 10px; /* Reduce padding */
+    }
+
+    .intro-section h1 {
+        font-size: 2rem; /* Smaller headings */
+    }
+
+    .intro-section p {
+        font-size: 1rem; /* Smaller paragraph */
+    }
+
+    .book-btn {
+        font-size: 0.9rem; /* Adjust button size */
+        padding: 8px 16px; /* Adjust button padding */
+    }
+}
+
+.gallery-section {
+    padding: 100px 0;
+    background: rgba(246,238,215,255);
+    text-align: center;
+}
+
+/* Updated styles for gallery container to allow horizontal scrolling */
+.gallery-container {
+    display: flex;
+    justify-content: flex-start; /* Align items to the start */
+    overflow-x: scroll; /* Enable horizontal scrolling */
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+    cursor: grab; /* Cursor for grabbing on PC */
+}
+
+.gallery img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease, margin 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.1); /* Enlarge the image */
+}
+
+/* Hide scrollbar */
+.gallery-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Make the container scroll smoothly */
+.gallery {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+}
+
+#image-modal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; 
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#modal-image {
+    transition: transform 0.3s ease-in-out;
+}
+
+#image-modal #close-modal {
+    color: white;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.contact-section {
+    padding: 100px 20px;
+    background-color: rgba(246,238,215,255);
+    text-align: center;
+}
+
+.contact-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#contact-form input, #contact-form textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+#contact-form button {
+    padding: 15px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#contact-form button:hover {
+    background-color: #e65c50;
+}
+
+footer {
+    background: #333;
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+    width: calc(100% + 40px); /* Extend the footer to cover the full width of the container */
+    margin-left: -20px; /* Shift the footer left by 20px to align it with the container edges */
+    border-bottom-left-radius: 20px; /* Match container's bottom-left corner rounding */
+    border-bottom-right-radius: 20px; /* Match container's bottom-right corner rounding */
+}
+
+.socials {
+    margin-bottom: 20px;
+}
+
+.socials a {
+    margin: 0 15px;
+}
+
+.socials img {
+    width: 30px;
+    transition: transform 0.3s ease;
+}
+
+.socials img:hover {
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    #website-container {
+        width: 95%; /* More width on smaller screens */
+        height: 90vh; /* Slightly taller to accommodate more content */
+        top: 5%; /* Less margin at the top */
+    }
+}
+
+.book-section {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.book-section h2 {
+    margin-bottom: 20px;
+}
+
+.book-section p {
+    margin-bottom: 30px;
+}
+
+.form-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-iframe {
+    width: 100%;
+    height: 800px; /* Adjust this value as needed */
+    border: none;
+}

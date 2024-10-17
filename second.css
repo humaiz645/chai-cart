@@ -1,0 +1,372 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Allow vertical scrolling in the body */
+body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Allow vertical scrolling */
+}
+
+/* Main container with rounded corners */
+#website-container {
+    width: 98%; /* Make the container take up 98% of the viewport width */
+    max-width: 1950px; /* Increase the maximum width further */
+    height: 95vh; /* Increase the height to fill 90% of the viewport height */
+    background-color: white; /* White background inside the container */
+    border-radius: 20px; /* Keep the rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Optional shadow for floating effect */
+    overflow-y: auto; /* Enable vertical scrolling inside the container */
+    position: relative; /* Allow elements inside to be positioned relatively */
+    margin: 1vh auto; /* Add minimal vertical margin to keep a small space on top and bottom */
+}
+
+#website-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+
+section {
+    padding-top: 100px; /* Adjust according to nav height */
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white; /* Background color for the loading screen */
+    z-index: 9999; /* Ensure it appears above all other elements */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Loading Animation Container */
+#loading-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Space between the GIF and loading bar */
+}
+
+/* Chai GIF */
+#chai-gif {
+    width: 100px; /* Adjust the size of the GIF as needed */
+    height: auto;
+}
+
+/* Loading Bar Container */
+#loading-container {
+    position: relative;
+    width: 250px; /* Width of the loading bar placeholder */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start; /* Ensure bar grows from left */
+}
+
+/* Placeholder Line */
+#loading-bar-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%; /* The full width of the placeholder */
+    height: 2px; /* Thin placeholder line */
+    background-color: #ccc; /* Placeholder color */
+    z-index: 1;
+}
+
+/* The Loading Bar */
+#loading-bar {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0%; /* Start at 0% */
+    height: 2px; /* Thin line */
+    background-color: #775a57; /* Color for the loading bar */
+    z-index: 2; /* Ensure it appears on top of the placeholder */
+    transition: width .5s ease-in-out; /* Make the bar fill in 3 seconds */
+}
+
+/* Percentage Counter */
+#loading-counter {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem; /* Smaller text for the counter */
+    color: #000000;
+    position: relative;
+    margin-left: 255px; /* Align the counter just outside the bar */
+    z-index: 3;
+}
+
+/* Fade-out animation for the loading screen */
+.fade-out {
+    opacity: 0;
+    transition: opacity 1s ease;
+    pointer-events: none;
+}
+
+
+/* Vertical Navigation Bar */
+nav {
+    position: fixed;
+    top: 50%;
+    left: 20px; /* Distance from the left edge */
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Navigation links and styles */
+nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white; /* Make the text color white */
+    font-size: 0.8rem; /* Make the font size smaller */
+    padding: 3px 0;
+    display: inline-block;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+/* White dot under the active section */
+nav ul li.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; /* Position the dot below the link */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: white; /* White dot */
+    border-radius: 50%;
+}
+
+.intro-section {
+    height: 100vh;
+    background: url('images/background.jpg') no-repeat center center;
+    background-size: cover;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.intro-section h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.intro-section p {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    color: black;
+}
+
+.book-btn {
+    padding: 10px 20px;
+    background-color: #ff6f61;
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: background 0.3s;
+}
+
+.book-btn:hover {
+    background-color: #e65c50;
+}
+
+/* Media Query: Hide the navigation on small screens */
+@media (max-width: 768px) {
+    nav {
+        display: none; /* Hide nav */
+    }
+
+    #website-container {
+        width: 90%; /* Take up full width on mobile */
+        padding: 0; /* Remove padding */
+    }
+
+    /* Adjust other elements on mobile */
+    .intro-section h1 {
+        font-size: 2rem; /* Smaller headings */
+    }
+
+    .intro-section p {
+        font-size: 1rem; /* Smaller paragraph */
+    }
+
+    .book-btn {
+        font-size: 0.9rem; /* Adjust button size */
+        padding: 8px 16px; /* Adjust button padding */
+    }
+
+    .intro-section {
+        background-size: fill; /* Ensure background fits nicely */
+    }
+}
+
+.gallery-section {
+    padding: 100px 0;
+    background: #f4f4f4;
+    text-align: center;
+}
+
+/* Updated styles for gallery container to allow horizontal scrolling */
+.gallery-container {
+    display: flex;
+    justify-content: center;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+    cursor: grab; /* Cursor for grabbing on PC */
+}
+
+/* Style to enlarge image and push surrounding images on hover */
+.gallery img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: transform 0.3s ease, margin 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.1); /* Enlarge the image */
+}
+
+/* Hide scrollbar */
+.gallery-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Make the container scroll smoothly */
+.gallery {
+    display: flex;
+    gap: 20px;
+    padding: 10px;
+}
+
+/* Style for the modal */
+#image-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+}
+
+#modal-image {
+    transition: transform 0.3s ease-in-out;
+}
+
+#image-modal #close-modal {
+    color: white;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.contact-section {
+    padding: 100px 20px;
+    background-color: #fefefe;
+    text-align: center;
+}
+
+.contact-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+}
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#contact-form input, #contact-form textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+#contact-form button {
+    padding: 15px;
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+#contact-form button:hover {
+    background-color: #e65c50;
+}
+
+footer {
+    background: #333;
+    color: white;
+    padding: 40px 0;
+    text-align: center;
+    width: calc(100% + 40px); /* Extend the footer to cover the full width of the container */
+    margin-left: -20px; /* Shift the footer left by 20px to align it with the container edges */
+    border-bottom-left-radius: 20px; /* Match container's bottom-left corner rounding */
+    border-bottom-right-radius: 20px; /* Match container's bottom-right corner rounding */
+}
+
+.socials {
+    margin-bottom: 20px;
+}
+
+.socials a {
+    margin: 0 15px;
+}
+
+.socials img {
+    width: 30px;
+    transition: transform 0.3s ease;
+}
+
+.socials img:hover {
+    transform: scale(1.2);
+}
+
